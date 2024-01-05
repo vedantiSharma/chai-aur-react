@@ -1,35 +1,90 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import InputBox from './Components/Inputbox'
+import useCurrencyinfo from './hooks/useCurrencyinfo'
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [amount, setamount] = useState(0)
+  const [from, setfrom] = useState("usd")
+  const [to, setTo] = useState("inr")
+  const [convertedAmount, setconvertedAmount] = useState(0)
+
+
+  const Currencyinfo = useCurrencyinfo(from)
+
+  const options = Object.keys(useCurrencyinfo)
+  const swap = () => {
+    setfrom(to)
+    setTo(from)
+    setconvertedAmount(amount)
+    setamount(convertedAmount)
+
+  }
+
+  const convert = () => {
+    setconvertedAmount(amount * Currencyinfo[to])
+  }
+
+
+
+
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div
+      className="w-full h-screen flex flex-wrap justify-center items-center bg-cover bg-no-repeat"
+      style={{
+        backgroundImage: `url('https://images.pexels.com/photos/259191/pexels-photo-259191.jpeg?auto=compress&cs=tinysrgb&w=600')`,
+      }}
+    >
+      <div className="w-full">
+        <div className="w-full max-w-md mx-auto border border-gray-60 rounded-lg p-5 backdrop-blur-sm bg-white/30">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              convert()
 
-export default App
+            }}
+          >
+            <div className="w-full mb-1">
+              <InputBox
+                label="From"
+                amount={amount}
+                currencyOptions={options}
+                oncurrencyChange={(currency) => setamount(amount)}
+                selectcurrency={from}
+                Onamountchange={(amount)=>{
+                  setamount(amount)
+                }}
+
+              />
+            </div>
+            <div className="relative w-full h-0.5">
+              <button
+                type="button"
+                className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 border-2 border-white rounded-md bg-blue-600 text-white px-2 py-0.5"
+                onClick={swap}
+              >
+                swap
+              </button>
+            </div>
+            <div className="w-full mt-1 mb-4">
+              <InputBox
+                label="To"
+                amount={convertedAmount}
+                currencyOptions={options}
+                oncurrencyChange={(currency)=>{setTo(currency)}}
+                selectcurrency={from}
+                amountDisable
+
+              />
+            </div>
+            <button type="submit" className="w-full bg-blue-600 text-white px-4 py-3 rounded-lg">
+              Convert {from.toUpperCase()} to {to.toUpperCase()}
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  );}
+
+  export default App
