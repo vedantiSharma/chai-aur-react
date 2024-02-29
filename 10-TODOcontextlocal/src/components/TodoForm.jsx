@@ -5,14 +5,16 @@ function TodoForm() {
     const [todo, setTodo] = useState(" ")
     const {AddTodo} =useTodo()
 
-    const add=(e)=>{
-        e.preventDefault()
+    const add=(e)=>{ 
+        e.preventDefault()//this is confirming your form submission will not trigger the page reload
 
-        if(!todo) return
+        if(!todo) return //not working properly  as i am able to add the blank todo still 
+        //this (!todo) state prevent from add blank state in todos 
 
         AddTodo({todo,  completed: false})
         setTodo("")
     }
+
 
 
     return (
