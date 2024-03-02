@@ -9,7 +9,7 @@ function App() {
 
   return (
     <> 
-    <h1>hellow redux</h1>
+    <h1>hellow redux- app-jsx</h1>
     <AddTodo/>
     <Todos/>
     </> 
