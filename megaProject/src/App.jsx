@@ -7,7 +7,7 @@ console.log(import.meta.env.VITE_APPWRITE_URL );
   return (
     
       <>
-      <h1>appplication run </h1></>
+      <h1>appplication run app.js </h1></>
       
   )
 }
