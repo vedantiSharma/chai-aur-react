@@ -1,11 +1,11 @@
-import {config} from "../config/config"
+import config from "../config/config";
 export class AuthService {
     client = new Client();
     account;
     constructor() {
         this.client //giving refrence of client variavble
-            .setEndPoint(appwriteUrl)
-            .setProject(appwriteProjectId);
+            .setEndPoint(config.appwriteUrl)
+            .setProject(config.appwriteProjectId);
 
         this.account = new Account(this.client);
     }
