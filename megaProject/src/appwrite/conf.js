@@ -1,7 +1,7 @@
 import config from "../config/config";
 import {Databases ,Storage }from 'appwrite'
 
-export class conf{
+export class conf{ //tryin to push in github
 
     client = new Client();
     databases;
