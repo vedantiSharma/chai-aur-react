@@ -1,9 +1,9 @@
 const config ={
-    appwrite_url : String(import.meta.env.VITE_APPWRITE_URL),
-    appwrite_project_id : String(import.meta.env.VITE_PROJECT_ID),
-    appwrite_database_id : String(import.meta.env.VITE_DATABASE_ID),
-    appwrite_collection_id : String(import.meta.env.VITE_COLLECTION_ID),
-    appwrite_bucket_id: String(import.meta.env.VITE_BUCKET_ID),
+    appwriteUrl : String(import.meta.env.VITE_APPWRITE_URL),
+    appwriteProjectId : String(import.meta.env.VITE_PROJECT_ID),
+    appwriteDatabaseId : String(import.meta.env.VITE_DATABASE_ID),
+    appwriteCollectionId : String(import.meta.env.VITE_COLLECTION_ID),
+    appwriteBucketId: String(import.meta.env.VITE_BUCKET_ID),
 
 
 
