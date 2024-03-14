@@ -6,7 +6,8 @@ export class conf{ //tryin to push in github ,,,,,,,,,,,,,,,,
     client = new Client();
     databases;
     bucket;
-    
+
+
     constructor() {
         this.client //giving refrence of client variavble
             .setEndPoint(config.appwriteUrl)
