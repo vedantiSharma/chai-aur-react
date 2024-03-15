@@ -1,7 +1,7 @@
 import config from "../config/config";
-import {Databases ,Storage }from 'appwrite'
+import {Client,Databases ,Storage ,ID }from 'appwrite'
 
-export class conf{ //tryin to push in github ,,,,,,,,,,,,,,,,
+export class conf{ 
 
     client = new Client();
     databases;
@@ -12,7 +12,7 @@ export class conf{ //tryin to push in github ,,,,,,,,,,,,,,,,
         this.client //giving refrence of client variavble
             .setEndPoint(config.appwriteUrl)
             .setProject(config.appwriteProjectId);
-            this.databases = new databases(this.client)
+            this.databases = new Databases(this.client)
             this.bucket = new Storage(this.client)
 
     }
@@ -38,7 +38,7 @@ export class conf{ //tryin to push in github ,,,,,,,,,,,,,,,,
         }
     }
 
-    async updatePost(slug,{title  , userId , featuredImage ,status, content}){
+    async updatePost(slug,{title  ,content , featuredImage ,status}){
         try {
             return await this.databases.updateDocument(
 
@@ -58,7 +58,7 @@ export class conf{ //tryin to push in github ,,,,,,,,,,,,,,,,
         }
     }
 
-    async deletePost(slug,{title  , userId , featuredImage ,status, content}){
+    async deletePost(slug){
         try {
             { await this.databases.deleteDocument(
                 config.appwriteDatabaseId,
@@ -82,6 +82,7 @@ export class conf{ //tryin to push in github ,,,,,,,,,,,,,,,,
                 slug
                 
             )
+            return true;
             
         } catch (error) {
             console.log("Appwrite service :: deletePost::error" , error) ;
@@ -89,6 +90,68 @@ export class conf{ //tryin to push in github ,,,,,,,,,,,,,,,,
             
         }
     }
+
+
+    async getPosts(queries=[Query.equals("status","active ")]){
+        try {
+
+            return await this.databases.ListDocuments(
+                config.appwriteDatabaseId,
+                config.appwriteCollectionId,
+                queries,
+                
+            )
+            
+        } catch (error) {
+            console.log("Appwrite service :: getPosts::error" , error) ;
+            return false;
+            
+        }
+
+    }
+
+    
+    //upload file services
+    async UploadFile(file){
+        try {
+
+            return await this.bucket.createFile(
+                config.appwriteBucketId,
+                ID.unique(),
+                file
+            )
+            
+        } catch (error) {
+            console.log("Appwrite service :: deletePost::error" , error) ;
+            return false;
+            
+        }
+    }
+
+    async deleteFile(fileId){
+        try {
+            
+            return await this.databases.deleteFile(
+                config.appwriteBucketId,
+                fileId
+            )
+            return true;
+        } catch (error) {
+            console.log("Appwrite service :: deleteFile::error" , error) ;
+            return false;
+            
+            
+        }
+    }
+
+    getFilePreview(fileId){
+        return this.bucket.getFilePreview(
+            config.appwriteBucketId,
+            fileId
+        )
+    }
+
+
 }
 
 
