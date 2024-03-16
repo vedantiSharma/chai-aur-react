@@ -1,9 +1,13 @@
 
+import { useEffect, useState } from 'react'
+import {useDispatch} from '@reduxjs/toolkit'
 import './App.css'
 
 function App() {
- 
-console.log(import.meta.env.VITE_APPWRITE_URL );
+ const[Loading, SetLoading] =useState(true)
+const dispatch = useDispatch()
+//dispatch is like combiner when u want to use react with redux
+
   return (
     
       <>
